@@ -41,7 +41,7 @@ public class SplashActivity extends Activity {
         set.addAnimation(rotateAnimation);
         set.addAnimation(scaleAnimation);
         set.addAnimation(alphaAnimation);
-        set.setDuration(1000);
+        set.setDuration(2000);
         fl_root.startAnimation(set);
         set.setAnimationListener(new Animation.AnimationListener() {
             @Override

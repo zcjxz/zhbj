@@ -2,12 +2,11 @@ package com.zcj.zhbj.activity;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
-import com.zcj.zhbj.Fragment.LeftMenuFragment;
-import com.zcj.zhbj.Fragment.MainFragment;
+import com.zcj.zhbj.fragment.LeftMenuFragment;
+import com.zcj.zhbj.fragment.MainFragment;
 import com.zcj.zhbj.R;
 
 public class MainActivity extends SlidingFragmentActivity {

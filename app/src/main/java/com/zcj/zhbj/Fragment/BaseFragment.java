@@ -1,4 +1,4 @@
-package com.zcj.zhbj.Fragment;
+package com.zcj.zhbj.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
