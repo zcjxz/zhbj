@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.zcj.zhbj.SplashActivity"
+    tools:context=".activity.SplashActivity"
     android:id="@+id/fl_root"
     android:background="@drawable/splash_bg_newyear">
     <View

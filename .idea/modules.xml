@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/slidingMenuLibrary/slidingMenuLibrary.iml" filepath="$PROJECT_DIR$/slidingMenuLibrary/slidingMenuLibrary.iml" />
+      <module fileurl="file://$PROJECT_DIR$/viewPagerLibrary/viewPagerLibrary.iml" filepath="$PROJECT_DIR$/viewPagerLibrary/viewPagerLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/xUtilLibrary/xUtilLibrary.iml" filepath="$PROJECT_DIR$/xUtilLibrary/xUtilLibrary.iml" />
       <module fileurl="file://$PROJECT_DIR$/zhbj.iml" filepath="$PROJECT_DIR$/zhbj.iml" />
     </modules>

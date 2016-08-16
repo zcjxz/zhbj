@@ -1,9 +1,8 @@
-package com.zcj.zhbj;
+package com.zcj.zhbj.activity;
 
 import android.app.Activity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -12,8 +11,7 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.ScaleAnimation;
 import android.widget.FrameLayout;
 
-import com.zcj.zhbj.activity.GuideActivity;
-import com.zcj.zhbj.activity.MainActivity;
+import com.zcj.zhbj.R;
 import com.zcj.zhbj.utils.SPhelper;
 
 public class SplashActivity extends Activity {

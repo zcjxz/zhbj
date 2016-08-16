@@ -3,11 +3,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@mipmap/title_red_bg">
         <ImageButton
+            android:id="@+id/btn_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/img_menu"
@@ -15,16 +16,17 @@
             android:background="@null"
             android:layout_gravity="center_vertical"/>
         <TextView
+            android:layout_centerInParent="true"
             android:id="@+id/tv_title"
             android:textColor="@android:color/white"
             android:text="智慧北京"
-            android:textSize="20sp"
+            android:textSize="22sp"
             android:gravity="center"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-    </LinearLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
     <FrameLayout
+        android:background="@android:color/white"
         android:id="@+id/fl_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -22,5 +22,6 @@ public class GovAffairsPager extends BasePager {
         text.setTextSize(25);
         text.setGravity(Gravity.CENTER);
         flContent.addView(text);
+        setSlidingMenuEnable(true);
     }
 }

@@ -1,4 +1,4 @@
-package com.zcj.zhbj.pager;
+package com.zcj.zhbj.menuDetailPager;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -7,23 +7,21 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
- * 设置
+ * 菜单详情页--专题
  */
-public class SettingPager extends BasePager {
-    public SettingPager(Activity activity) {
+public class TopicMenuDetailPager extends BaseMenuDetailPager {
+
+    public TopicMenuDetailPager(Activity activity) {
         super(activity);
     }
 
     @Override
-    public void initData() {
-        tvTitle.setText("设置");
+    public View initView() {
         TextView text=new TextView(mActivity);
-        text.setText("设置");
+        text.setText("专题");
         text.setTextColor(Color.RED);
         text.setTextSize(25);
         text.setGravity(Gravity.CENTER);
-        flContent.addView(text);
-        btnMenu.setVisibility(View.GONE);
-        setSlidingMenuEnable(false);
+        return text;
     }
 }
