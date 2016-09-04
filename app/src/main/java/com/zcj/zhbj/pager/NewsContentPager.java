@@ -1,6 +1,7 @@
 package com.zcj.zhbj.pager;
 
 import android.app.Activity;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.lidroid.xutils.HttpUtils;
@@ -47,6 +48,7 @@ public class NewsContentPager extends BasePager {
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
                 String result = responseInfo.result;
+                Log.i("NewsContentPager", "获取json成功，onSuccess: "+result);
                 parseData(result);
             }
             @Override
@@ -64,6 +66,7 @@ public class NewsContentPager extends BasePager {
     private void parseData(String result) {
         Gson gson=new Gson();
         data = gson.fromJson(result,NewsData.class);
+        Log.i("NewsContentPager", "解析数据，parseData: "+data);
         //刷新侧边栏数据
         MainActivity mainActivity= (MainActivity) mActivity;
         LeftMenuFragment leftMenuFragment = mainActivity.getLeftMenuFragment();

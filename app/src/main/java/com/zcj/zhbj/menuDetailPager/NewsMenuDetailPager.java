@@ -7,9 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.viewpagerindicator.TabPageIndicator;
 import com.zcj.zhbj.R;
 import com.zcj.zhbj.TabDetailPager.BaseTabDetailPager;
+import com.zcj.zhbj.activity.MainActivity;
 import com.zcj.zhbj.domain.NewsData;
 
 import java.util.ArrayList;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 /**
  * 菜单详情页--新闻
  */
-public class NewsMenuDetailPager extends BaseMenuDetailPager {
+public class NewsMenuDetailPager extends BaseMenuDetailPager implements ViewPager.OnPageChangeListener{
 
     private ViewPager mViewPager;
     private ArrayList<BaseTabDetailPager> mPagerList;
@@ -36,6 +38,8 @@ public class NewsMenuDetailPager extends BaseMenuDetailPager {
         mViewPager = (ViewPager) newsMenuDetail.findViewById(R.id.vp_news_detail);
         indicator = (TabPageIndicator) newsMenuDetail.findViewById(R.id.indicator);
         ibNextPager = (ImageButton) newsMenuDetail.findViewById(R.id.ib_next_pager);
+
+
         return newsMenuDetail;
     }
 
@@ -51,13 +55,36 @@ public class NewsMenuDetailPager extends BaseMenuDetailPager {
         //初始化indicator
         //必须在viewpager设置完adapter后才能调用，否则会报错
         indicator.setViewPager(mViewPager);
-
+        //viewpager和indicator绑定后，设置滑动监听要在indicator里面设置，否则会错乱，不信你试试
+//        mViewPager.setOnPageChangeListener(this);
+        indicator.setOnPageChangeListener(this);
         ibNextPager.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem()+1);
             }
         });
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+        MainActivity mainActivity= (MainActivity) mActivity;
+        SlidingMenu slidingMenu = mainActivity.getSlidingMenu();
+        if (position==0){
+            slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        }else{
+            slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
+        }
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 
     class NewsDetailAdapter extends PagerAdapter{

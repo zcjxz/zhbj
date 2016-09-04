@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".activity.GuideActivity" />
         <activity android:name=".activity.MainActivity"
-            android:theme="@style/Theme.PageIndicatorDefaults"></activity>
+            android:theme="@style/MainActivityStyle"
+            ></activity>
     </application>
     //权限
     <uses-permission android:name="android.permission.INTERNET"/>

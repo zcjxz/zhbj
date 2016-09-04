@@ -47,7 +47,7 @@ public class BasePager {
         MainActivity mainActivity= (MainActivity) mActivity;
         SlidingMenu slidingMenu = mainActivity.getSlidingMenu();
         if (enable){
-            slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+            slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
         }else{
             slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
         }
