@@ -28,10 +28,10 @@ import java.util.ArrayList;
 public class GuideActivity extends Activity {
 
     private ViewPager vp_guide;
-    private static final int[] mImageIds=new int[]{R.drawable.guide_1,R.drawable.guide_2,R.drawable.guide_3};
+    private static final int[] mImageIds = new int[]{R.drawable.guide_1, R.drawable.guide_2, R.drawable.guide_3};
     private ArrayList<ImageView> mImageViewList;
     private LinearLayout ll_point_group;//小圆点的父控件
-    private int pointSize=10;//写入所需dp值
+    private int pointSize = 10;//写入所需dp值
     private LinearLayout.LayoutParams params;
     private int mPointWidth;//小圆点间的距离
     private View point_red;
@@ -56,14 +56,14 @@ public class GuideActivity extends Activity {
         bt_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SPhelper.putBoolean(GuideActivity.this,SPhelper.IS_GUIDE_SHOWED,true);
-                startActivity(new Intent(GuideActivity.this,MainActivity.class));
+                SPhelper.putBoolean(GuideActivity.this, SPhelper.IS_GUIDE_SHOWED, true);
+                startActivity(new Intent(GuideActivity.this, MainActivity.class));
                 finish();
             }
         });
     }
 
-    private void initViews(){
+    private void initViews() {
         vp_guide = (ViewPager) findViewById(R.id.vp_guide);
         ll_point_group = (LinearLayout) findViewById(R.id.ll_point_group);
         point_red = (View) findViewById(R.id.view_point_red);
@@ -74,18 +74,18 @@ public class GuideActivity extends Activity {
     }
 
     private void initAnimation() {
-        ScaleAnimation scaleShow=new ScaleAnimation(0,1,0,1,
-                Animation.RELATIVE_TO_SELF,0.5f,
-                Animation.RELATIVE_TO_SELF,0.5f);
-        alphaShow = new AlphaAnimation(0,1);
+        ScaleAnimation scaleShow = new ScaleAnimation(0, 1, 0, 1,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        alphaShow = new AlphaAnimation(0, 1);
         setShow = new AnimationSet(false);
         setShow.addAnimation(scaleShow);
         setShow.addAnimation(scaleShow);
         setShow.setDuration(300);
-        ScaleAnimation scaleHide=new ScaleAnimation(1,0,1,0,
-                Animation.RELATIVE_TO_SELF,0.5f,
-                Animation.RELATIVE_TO_SELF,0.5f);
-        AlphaAnimation alphaHide=new AlphaAnimation(1,0);
+        ScaleAnimation scaleHide = new ScaleAnimation(1, 0, 1, 0,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f);
+        AlphaAnimation alphaHide = new AlphaAnimation(1, 0);
         setHide = new AnimationSet(false);
         setHide.addAnimation(scaleHide);
         setHide.addAnimation(alphaHide);
@@ -98,7 +98,7 @@ public class GuideActivity extends Activity {
     private void initGuideView() {
         mImageViewList = new ArrayList<ImageView>();
         for (int i = 0; i < mImageIds.length; i++) {
-            ImageView imageView=new ImageView(this);
+            ImageView imageView = new ImageView(this);
             imageView.setBackgroundResource(mImageIds[i]);
             mImageViewList.add(imageView);
         }
@@ -108,13 +108,13 @@ public class GuideActivity extends Activity {
     /**
      * 初始化小圆点
      */
-    private void initPoint(){
+    private void initPoint() {
         for (int i = 0; i < mImageIds.length; i++) {
-            View point=new View(this);
+            View point = new View(this);
             point.setBackgroundResource(R.drawable.shape_point_gray);
             params = new LinearLayout.LayoutParams(dip2px(pointSize), dip2px(pointSize));
-            if (i>0){
-                params.leftMargin=dip2px(10);
+            if (i > 0) {
+                params.leftMargin = dip2px(10);
             }
             point.setLayoutParams(params);
             ll_point_group.addView(point);
@@ -132,15 +132,15 @@ public class GuideActivity extends Activity {
                 ll_point_group.getViewTreeObserver().removeGlobalOnLayoutListener(this);
             }
 
-            });
+        });
         redPointParams = (RelativeLayout.LayoutParams) point_red.getLayoutParams();
     }
 
-    private int dip2px(int dp){
+    private int dip2px(int dp) {
         return DensityUtil.dip2px(this, dp);
     }
 
-    class GuideAdapter extends PagerAdapter{
+    class GuideAdapter extends PagerAdapter {
 
         @Override
         public int getCount() {
@@ -149,7 +149,7 @@ public class GuideActivity extends Activity {
 
         @Override
         public boolean isViewFromObject(View view, Object object) {
-            return view==object;
+            return view == object;
         }
 
         @Override
@@ -164,22 +164,22 @@ public class GuideActivity extends Activity {
         }
     }
 
-    class GuidePageListen implements ViewPager.OnPageChangeListener{
+    class GuidePageListen implements ViewPager.OnPageChangeListener {
 
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            int len= (int) (mPointWidth*positionOffset)+position*mPointWidth;
-            redPointParams.leftMargin=len;
+            int len = (int) (mPointWidth * positionOffset) + position * mPointWidth;
+            redPointParams.leftMargin = len;
             point_red.setLayoutParams(redPointParams);
         }
 
         @Override
         public void onPageSelected(int position) {
-            if (position==pageSize-1){
+            if (position == pageSize - 1) {
                 bt_start.setVisibility(View.VISIBLE);
                 bt_start.startAnimation(setShow);
-            }else{
-                if (bt_start.getVisibility()==View.VISIBLE){
+            } else {
+                if (bt_start.getVisibility() == View.VISIBLE) {
 
                     bt_start.startAnimation(setHide);
                 }

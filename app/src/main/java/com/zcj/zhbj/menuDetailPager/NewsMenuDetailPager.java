@@ -5,12 +5,13 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
 import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.viewpagerindicator.TabPageIndicator;
 import com.zcj.zhbj.R;
-import com.zcj.zhbj.TabDetailPager.BaseTabDetailPager;
+import com.zcj.zhbj.TabDetailPager.NewsTabDetailPager;
 import com.zcj.zhbj.activity.MainActivity;
 import com.zcj.zhbj.domain.NewsData;
 
@@ -22,13 +23,13 @@ import java.util.ArrayList;
 public class NewsMenuDetailPager extends BaseMenuDetailPager implements ViewPager.OnPageChangeListener{
 
     private ViewPager mViewPager;
-    private ArrayList<BaseTabDetailPager> mPagerList;
+    private ArrayList<NewsTabDetailPager> mPagerList;
     private ArrayList<NewsData.NewsTabData> mNewsTabData;//页签的网络数据
     private TabPageIndicator indicator;
     private ImageButton ibNextPager;
 
-    public NewsMenuDetailPager(Activity activity, ArrayList<NewsData.NewsTabData> children) {
-        super(activity);
+    public NewsMenuDetailPager(Activity activity, FrameLayout menuView, ArrayList<NewsData.NewsTabData> children) {
+        super(activity,menuView);
         mNewsTabData=children;
     }
 
@@ -45,10 +46,10 @@ public class NewsMenuDetailPager extends BaseMenuDetailPager implements ViewPage
 
     @Override
     public void initData() {
-        mPagerList=new ArrayList<BaseTabDetailPager>();
+        mPagerList=new ArrayList<NewsTabDetailPager>();
         //初始化页签数据
         for (int i = 0; i < mNewsTabData.size(); i++) {
-            BaseTabDetailPager pager= new BaseTabDetailPager(mActivity,mNewsTabData.get(i));
+            NewsTabDetailPager pager= new NewsTabDetailPager(mActivity,mNewsTabData.get(i));
             mPagerList.add(pager);
         }
         mViewPager.setAdapter(new NewsDetailAdapter());
@@ -64,6 +65,7 @@ public class NewsMenuDetailPager extends BaseMenuDetailPager implements ViewPage
                 mViewPager.setCurrentItem(mViewPager.getCurrentItem()+1);
             }
         });
+        mPagerList.get(0).initData();
     }
 
     @Override
@@ -73,6 +75,7 @@ public class NewsMenuDetailPager extends BaseMenuDetailPager implements ViewPage
 
     @Override
     public void onPageSelected(int position) {
+        mPagerList.get(position).initData();
         MainActivity mainActivity= (MainActivity) mActivity;
         SlidingMenu slidingMenu = mainActivity.getSlidingMenu();
         if (position==0){
@@ -87,7 +90,7 @@ public class NewsMenuDetailPager extends BaseMenuDetailPager implements ViewPage
 
     }
 
-    class NewsDetailAdapter extends PagerAdapter{
+    private class NewsDetailAdapter extends PagerAdapter{
         //重写该方法，用于viewpagerIndicator的页签的显示
         @Override
         public CharSequence getPageTitle(int position) {
@@ -106,9 +109,9 @@ public class NewsMenuDetailPager extends BaseMenuDetailPager implements ViewPage
 
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            BaseTabDetailPager pager = mPagerList.get(position);
+            NewsTabDetailPager pager = mPagerList.get(position);
             container.addView(pager.mRootView);
-            pager.initData();
+//            pager.initData();
             return pager.mRootView;
         }
 
@@ -117,4 +120,6 @@ public class NewsMenuDetailPager extends BaseMenuDetailPager implements ViewPage
             container.removeView((View) object);
         }
     }
+
+
 }

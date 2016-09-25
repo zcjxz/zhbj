@@ -1,6 +1,6 @@
 package com.zcj.zhbj.fragment;
 
-import android.util.Log;
+
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -22,7 +22,7 @@ public class LeftMenuFragment extends BaseFragment {
 
     private ListView lvList;
     private ArrayList<NewsData.NewsMenuData> mMenuList;
-    private int mCurrentPos;//当前被点击的菜单项
+    public int mCurrentPos;//当前被点击的菜单项
     private MenuAdapter adapter;
     private MainActivity mainActivity;
 

@@ -28,10 +28,10 @@ public class MainActivity extends SlidingFragmentActivity {
 
     private void initFragment() {
         fm = getSupportFragmentManager();
-        FragmentTransaction transaction = fm.beginTransaction();
+        FragmentTransaction transaction = fm.beginTransaction();//开始事务
         transaction.replace(R.id.fl_left_menu, new LeftMenuFragment(), FRAGMENT_LEFT_MENU);
         transaction.replace(R.id.fl_main, new MainFragment(), FRAGMENT_MAIN);
-        transaction.commit();
+        transaction.commit();//提交事务
     }
     //获取侧边栏fragment
     public LeftMenuFragment getLeftMenuFragment() {

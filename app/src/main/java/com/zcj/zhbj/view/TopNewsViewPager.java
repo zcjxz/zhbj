@@ -1,9 +1,15 @@
 package com.zcj.zhbj.view;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *  头条新闻的ViewPager
@@ -13,19 +19,18 @@ public class TopNewsViewPager extends ViewPager{
     private int startX;
     private int startY;
     private boolean isParentIntercept=true;
+//    private Timer timer;
+//    private TimerTask timerTask;
 
     public TopNewsViewPager(Context context) {
-        super(context);
+        this(context,null);
     }
 
     public TopNewsViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
+//        startTimer();
     }
 
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent ev) {
-        return super.onInterceptTouchEvent(ev);
-    }
 
     /**
      * 事件分发
@@ -41,6 +46,7 @@ public class TopNewsViewPager extends ViewPager{
                 getParent().requestDisallowInterceptTouchEvent(true);
                 startX = (int) ev.getX();
                 startY = (int) ev.getY();
+//                cancelTimer();
                 break;
             case MotionEvent.ACTION_MOVE:
                 int endX = (int) ev.getX();
@@ -70,6 +76,7 @@ public class TopNewsViewPager extends ViewPager{
                 break;
             case MotionEvent.ACTION_UP:
                 isParentIntercept=true;
+//                startTimer();
                 break;
         }
         return super.dispatchTouchEvent(ev);
@@ -82,4 +89,32 @@ public class TopNewsViewPager extends ViewPager{
         getParent().requestDisallowInterceptTouchEvent(true);
         isParentIntercept=false;
     }
+
+//    private void startTimer(){
+//
+//        if (timerTask==null) {
+//            timerTask = new TimerTask() {
+//                @Override
+//                public void run() {
+//                    mHandler.sendEmptyMessage(0);
+//                }
+//            };
+//        }
+//        if (timer==null){
+//            timer = new Timer();
+//        }
+//        if (timer!=null&&timerTask!=null){
+//            timer.schedule(timerTask,3000,3000);
+//        }
+//    }
+//    private void cancelTimer(){
+//        if (timerTask!=null){
+//            timerTask.cancel();
+//            timerTask=null;
+//        }
+//        if (timer!=null){
+//            timer.cancel();
+//            timer=null;
+//        }
+//    }
 }

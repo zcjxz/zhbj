@@ -1,6 +1,7 @@
 package com.zcj.zhbj.pager;
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
@@ -18,6 +19,7 @@ import com.zcj.zhbj.menuDetailPager.InteractMenuDetailPager;
 import com.zcj.zhbj.menuDetailPager.NewsMenuDetailPager;
 import com.zcj.zhbj.menuDetailPager.PhotosMenuDetailPager;
 import com.zcj.zhbj.menuDetailPager.TopicMenuDetailPager;
+import com.zcj.zhbj.utils.CacheUtils;
 
 import java.util.ArrayList;
 
@@ -28,6 +30,7 @@ public class NewsContentPager extends BasePager {
 
     private ArrayList<BaseMenuDetailPager> mPagers;//4个菜单详情页的集合
     private NewsData data;
+    private BaseMenuDetailPager mCurrentMenuPager;
 
     public NewsContentPager(Activity activity) {
         super(activity);
@@ -36,7 +39,12 @@ public class NewsContentPager extends BasePager {
     @Override
     public void initData() {
         setSlidingMenuEnable(true);
-        //发送服务器请求
+        String cache = CacheUtils.getCache(GlobalContants.CATEGORIES_URL, mActivity);
+        if (!TextUtils.isEmpty(cache)) {
+            //缓存不为空，直接解析数据
+            parseData(cache);
+        }
+        //再获取数据
         getDataFromServer();
     }
 
@@ -50,6 +58,8 @@ public class NewsContentPager extends BasePager {
                 String result = responseInfo.result;
                 Log.i("NewsContentPager", "获取json成功，onSuccess: "+result);
                 parseData(result);
+                //设置缓存
+                CacheUtils.setCache(GlobalContants.CATEGORIES_URL,result,mActivity);
             }
             @Override
             public void onFailure(HttpException error, String msg) {
@@ -73,21 +83,25 @@ public class NewsContentPager extends BasePager {
         leftMenuFragment.setDate(data);
         //准备4个菜单详情页
         mPagers=new ArrayList<BaseMenuDetailPager>();
-        mPagers.add(new NewsMenuDetailPager(mainActivity,data.data.get(0).children));
-        mPagers.add(new TopicMenuDetailPager(mainActivity));
-        mPagers.add(new PhotosMenuDetailPager(mainActivity));
-        mPagers.add(new InteractMenuDetailPager(mainActivity));
-        setCurrentMenuDetailPager(0);
+        mPagers.add(new NewsMenuDetailPager(mainActivity,fl_menu,data.data.get(0).children));
+        mPagers.add(new TopicMenuDetailPager(mainActivity,fl_menu));
+        mPagers.add(new PhotosMenuDetailPager(mainActivity,fl_menu));
+        mPagers.add(new InteractMenuDetailPager(mainActivity,fl_menu));
+        setCurrentMenuDetailPager(leftMenuFragment.mCurrentPos);
     }
     /**
      * 设置当前菜单详情页
      */
     public void setCurrentMenuDetailPager(int position){
-        BaseMenuDetailPager pager=mPagers.get(position);
+        mCurrentMenuPager = mPagers.get(position);
         flContent.removeAllViews();
-        flContent.addView(pager.mRootView);
+        flContent.addView(mCurrentMenuPager.mRootView);
         NewsData.NewsMenuData newsMenuData = data.data.get(position);
         tvTitle.setText(newsMenuData.title);
-        pager.initData();
+        mCurrentMenuPager.initData();
+        mCurrentMenuPager.onSwitch();
+    }
+    public BaseMenuDetailPager getCurrentMenuPager(){
+        return  mCurrentMenuPager;
     }
 }

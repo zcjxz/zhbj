@@ -2,6 +2,7 @@ package com.zcj.zhbj.menuDetailPager;
 
 import android.app.Activity;
 import android.view.View;
+import android.widget.FrameLayout;
 
 /**
  * 菜单详情页基类
@@ -9,8 +10,11 @@ import android.view.View;
 public abstract class BaseMenuDetailPager {
     public Activity mActivity;
     public View mRootView;
-    public BaseMenuDetailPager(Activity activity) {
+    public FrameLayout mMenuView;
+    public BaseMenuDetailPager(Activity activity, FrameLayout menuView) {
         mActivity=activity;
+        mMenuView=menuView;
+        mMenuView.removeAllViews();
         mRootView=initView();
     }
 
@@ -19,4 +23,8 @@ public abstract class BaseMenuDetailPager {
     public void initData(){
 
     }
+    public void onSwitch(){
+        mMenuView.removeAllViews();
+    }
+
 }

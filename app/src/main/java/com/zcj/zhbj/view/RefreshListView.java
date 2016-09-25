@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.RotateAnimation;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -23,7 +24,7 @@ import java.util.Date;
 /**
  * 下拉刷新
  */
-public class RefreshListView extends ListView implements AbsListView.OnScrollListener{
+public class RefreshListView extends ListView implements AbsListView.OnScrollListener,AdapterView.OnItemClickListener{
 
     private int startY;
     private View mHeaderView;
@@ -132,13 +133,18 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                if (mCurrentState==STATE_RELEASE_REFRESH){
-                    mCurrentState=STATE_REFRESH;
-                    mHeaderView.setPadding(0,0,0,0);
-                }else if (mCurrentState==STATE_PULL_REFRESH){
-                    mHeaderView.setPadding(0,-measuredHeight,0,0);
+                if(mHeaderView.getPaddingTop()>-measuredHeight){
+                    //判断mHeaderView的paddingTop，如果大于-measuredHeight，
+                    // 则说明在使用下拉刷新，return true;防止响应onItemClick事件
+                    if (mCurrentState==STATE_RELEASE_REFRESH){
+                        mCurrentState=STATE_REFRESH;
+                        mHeaderView.setPadding(0,0,0,0);
+                    }else if (mCurrentState==STATE_PULL_REFRESH){
+                        mHeaderView.setPadding(0,-measuredHeight,0,0);
+                    }
+                    refreshState();
+                    return true;
                 }
-                refreshState();
                 break;
         }
         return super.onTouchEvent(ev);
@@ -222,6 +228,13 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
 
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (mOnItemClickListener!=null){
+            mOnItemClickListener.onItemClick(parent,view,position-getHeaderViewsCount(),id);
+        }
+    }
+
 
     public interface OnRefreshListener{
         void onRefresh();
@@ -253,5 +266,11 @@ public class RefreshListView extends ListView implements AbsListView.OnScrollLis
     public String getCurrentTime(){
         SimpleDateFormat format=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
         return format.format(new Date());
+    }
+    OnItemClickListener mOnItemClickListener;
+    @Override
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        super.setOnItemClickListener(this);
+        mOnItemClickListener=listener;
     }
 }

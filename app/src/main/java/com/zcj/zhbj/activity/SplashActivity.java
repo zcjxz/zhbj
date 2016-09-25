@@ -14,6 +14,8 @@ import android.widget.FrameLayout;
 import com.zcj.zhbj.R;
 import com.zcj.zhbj.utils.SPhelper;
 
+import cn.jpush.android.api.JPushInterface;
+
 public class SplashActivity extends Activity {
 
     private FrameLayout fl_root;

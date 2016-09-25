@@ -19,6 +19,7 @@ public class BasePager {
     public TextView tvTitle;
     public FrameLayout flContent;
     public ImageButton btnMenu;
+    public FrameLayout fl_menu;
 
     public BasePager(Activity activity) {
         mActivity=activity;
@@ -28,6 +29,7 @@ public class BasePager {
         mRootView = View.inflate(mActivity, R.layout.pager_base, null);
         tvTitle = (TextView) mRootView.findViewById(R.id.tv_title);
         flContent = (FrameLayout) mRootView.findViewById(R.id.fl_content);
+        fl_menu = (FrameLayout) mRootView.findViewById(R.id.fl_menu);
         btnMenu = (ImageButton) mRootView.findViewById(R.id.btn_menu);
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,7 +39,9 @@ public class BasePager {
             }
         });
     }
-    public void initData(){}
+    public void initData(){
+
+    }
 
     /**
      * 设置侧边栏是否可用
@@ -52,4 +56,5 @@ public class BasePager {
             slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_NONE);
         }
     }
+
 }
